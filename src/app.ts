@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 /* -------------------- Health Check -------------------- */
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).send("<h1>Hello, Production-ready Node + TS!</h1>");
+  res.status(200).send("<h1>Hello, From other side</h1>");
 });
 
 /* -------------------- Routes -------------------- */
