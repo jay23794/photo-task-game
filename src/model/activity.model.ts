@@ -2,8 +2,8 @@ import { model, Schema } from "mongoose";
 import { ActivityStatus, IActivity, IActivityDetails, IActivityResult, IActivitySession } from "../types/activity.type";
 
 const ActivitySessionSchema = new Schema<IActivitySession>({
-    userId: { type: String },
-    userEmail: { type: String, required: true, trim: true, lowercase: true },
+    userId: { type: String,unique:true },
+    userEmail: { type: String, required: true, trim: true, lowercase: true,unique:true },
     isStarted: { type: Boolean, default: false },
 });
 
