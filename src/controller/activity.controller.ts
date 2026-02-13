@@ -3,10 +3,11 @@ import { activityService } from "../infra/container";
 import { IActivitySession } from "../types/activity.type";
 
 
-export const create = (req:Request,res:Response)=>{
+export const create = (req: Request, res: Response) => {
     const payload = req.body as IActivitySession
-    activityService.create(payload)
+    const result = activityService.create(payload)
     res.status(201).json({
-        "success":true
-    }); 
+        "success": true,
+        data: result
+    });
 }
