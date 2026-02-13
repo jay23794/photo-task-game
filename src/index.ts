@@ -1,5 +1,5 @@
 
-//import mongoose from "mongoose";
+import mongoose from "mongoose";
 import app from "./app";
 import { connectDB } from "./config/mongo";
 
@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 
 
-/* -------------------- Server Start -------------------- */
+// /* -------------------- Server Start -------------------- */
 const server = app.listen(PORT, async () => {
    await connectDB();
   console.log(`🚀 Server running on http://localhost:${PORT}`);
@@ -17,7 +17,7 @@ const server = app.listen(PORT, async () => {
 /* -------------------- Graceful Shutdown -------------------- */
 process.on("SIGTERM", async () => {
   console.log("SIGTERM received. Shutting down gracefully...");
-  //await mongoose.connection.close();
+  await mongoose.connection.close();
   server.close(() => {
     console.log("Process terminated");
   });
@@ -25,7 +25,7 @@ process.on("SIGTERM", async () => {
 
 process.on("SIGINT", async () => {
   console.log("SIGINT received. Shutting down gracefully...");
-  //await mongoose.connection.close();
+  await mongoose.connection.close();
   server.close(() => {
     console.log("Process terminated");
   });
