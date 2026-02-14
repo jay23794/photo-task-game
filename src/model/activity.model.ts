@@ -9,11 +9,13 @@ const ActivitySessionSchema = new Schema<IActivitySession>({
 );
 
 const ActivityResultSchema = new Schema<IActivityResult>({
-    boothId: { type: Schema.Types.ObjectId, ref: "activitySession", required: true, unique: true },
+    boothId: { type: Schema.Types.ObjectId, ref: "activityDetails", required: true },
     score: { type: Number, required: true, default: 0 },
     url: { type: String, required: true },
     status: { type: String, enum: Object.values(ActivityStatus), default: ActivityStatus.STARTED, },
 }, { _id: true, timestamps: true });
+
+
 
 const ActivitySchema = new Schema<IActivity>({
     sessionId: { type: Schema.Types.ObjectId, required: true },

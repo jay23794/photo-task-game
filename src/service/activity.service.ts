@@ -16,7 +16,7 @@ export class ActivityService {
     score: IActivityResult,
   ): Promise<IActivityResult> {
     const result = await this._activityRepo.updateResult(email, score);
-    if (!result) throw new ResourceCantOverwrite();
+    if (!result) throw new BadRequestError();
     return result;
   }
 }

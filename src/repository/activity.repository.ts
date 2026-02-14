@@ -20,7 +20,14 @@ export class ActivityRepository {
         try {
 
             const score: IActivityResult | null = await ActivityModel.findOneAndUpdate(
-                { email: email, "result.boothId": { $ne: result.boothId } },
+                {
+                    email: email,
+                    result: {
+                        $not: {
+                            $elemMatch: { boothId: result.boothId }
+                        }
+                    }
+                },
                 {
                     $push: { result },
                     $inc: {
