@@ -1,8 +1,9 @@
 import { handleMongooseError } from "../config/mongo.error";
-import { ActivityModel, ActivitySessionModel } from "../model/activity.model";
-import { IActivityResult, IActivitySession } from "../types/activity.type";
+import { ActivityDetailsModel, ActivityModel, ActivitySessionModel } from "../model/activity.model";
+import { IActivityDetails, IActivityResult, IActivitySession } from "../types/activity.type";
 
 export class ActivityRepository {
+
     async start(activity: IActivitySession): Promise<IActivitySession> {
         try {
             const session = await ActivitySessionModel.create(activity);
@@ -42,6 +43,15 @@ export class ActivityRepository {
             }
 
             return score
+        } catch (error) {
+            throw handleMongooseError(error);
+        }
+    }
+
+    async createActivity(activity: IActivityDetails):Promise<IActivityDetails> {
+        try {
+            const result = await ActivityDetailsModel.create(activity);
+            return result
         } catch (error) {
             throw handleMongooseError(error);
         }

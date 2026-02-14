@@ -26,7 +26,6 @@ export interface IActivity extends Document {
 
 export interface IActivityDetails extends Document {
     id?: string
-    boothNo: number
     title: string
     description: string
     taskTitle: string
