@@ -12,6 +12,7 @@ export interface IActivitySession extends Document {
     userId?: string
     userEmail: string
     isStarted: boolean
+    avatar?:string
 }
 
 export interface IActivity extends Document {
