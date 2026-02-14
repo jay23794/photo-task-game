@@ -23,10 +23,15 @@ export const update = async (req: Request, res: Response) => {
 export const createActivity = async (req: Request, res: Response) => {
     const payload = req.body as IActivityDetails
     const result = await activityService.createActivity(payload)
-     res.status(201).json(successResponse(result));
+    res.status(201).json(successResponse(result));
 }
 
 export const scorer = async (req: Request, res: Response) => {
     const result = await activityService.scorer()
-     res.status(201).json(successResponse(result));
+    res.status(201).json(successResponse(result));
+}
+
+export const scorerCloude = async (req: Request, res: Response) => {
+    const result = await activityService.scorerCloude()
+    res.status(201).json(successResponse(result));
 }

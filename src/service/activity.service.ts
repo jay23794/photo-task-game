@@ -1,10 +1,10 @@
 import { BadRequestError, NotFoundError, ResourceCantOverwrite } from "../errors";
-import { GeminiAIFlashClient } from "../libs/gemini.ai";
+import { AIclientAdapter } from "../libs/gemini.ai";
 import { ActivityRepository } from "../repository/activity.repository";
-import { IActivityDetails, IActivityResult, IActivitySession } from "../types/activity.type";
+import { IActivityDetails, IActivityResult, IActivitySession, ScoreResponse } from "../types/activity.type";
 
 export class ActivityService {
-    constructor(private _activityRepo: ActivityRepository, private _geminiClient: GeminiAIFlashClient) { }
+    constructor(private _activityRepo: ActivityRepository, private _geminiClient: AIclientAdapter) { }
 
     async create(activity: IActivitySession): Promise<IActivitySession> {
         const session = await this._activityRepo.start(activity);
@@ -29,9 +29,19 @@ export class ActivityService {
         return result;
     }
 
-    async scorer():Promise<string> {
+    async scorer(): Promise<string> {
         const result = await this._geminiClient.analyseImage()
         if (!result) throw new BadRequestError();
         return result;
     }
+
+    async scorerCloude(): Promise<ScoreResponse> {
+        const intruction = "click photo of nature";
+        const result = await this._geminiClient.analyseImageHaiku(intruction)
+        const reponse = JSON.parse(result) as ScoreResponse
+        if (!result) throw new BadRequestError();
+        return reponse;
+    }
 }
+
+

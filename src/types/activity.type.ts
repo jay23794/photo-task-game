@@ -40,3 +40,8 @@ export interface IActivityResult extends Document {
     url: string
     status: ActivityStatus
 }
+
+export interface ScoreResponse {
+    score:string
+    reason:string
+}
