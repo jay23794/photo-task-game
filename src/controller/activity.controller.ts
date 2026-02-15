@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { activityService } from "../infra/container";
 import { IActivityDetails, IActivityResult, IActivitySession } from "../types/activity.type";
 import { successResponse } from "../utils/apiResponse";
+import { ActivityDetailsSchema } from "../types/zod/activity.schema";
 
 
 export const create = async (req: Request, res: Response) => {
@@ -27,7 +28,7 @@ export const createActivity = async (req: Request, res: Response) => {
 }
 
 export const createBulkActivity = async (req: Request, res: Response) => {
-    const payload = req.body as IActivityDetails[]
+    const payload = ActivityDetailsSchema.parse(req.body) as IActivityDetails[]
     const result = await activityService.createBulkActivity(payload)
     res.status(201).json(successResponse(result));
 }
