@@ -26,7 +26,7 @@ const ActivitySchema = new Schema<IActivity>({
 }, { timestamps: true })
 
 const ActivityDetailsSchema = new Schema<IActivityDetails>({
-     title: { type: String, required: true, trim: true },
+    title: { type: String, required: true, trim: true },
     description: { type: String, required: true, },
     taskTitle: { type: String, required: true },
     taskDescription: { type: String, required: true },

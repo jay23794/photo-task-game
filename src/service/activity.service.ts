@@ -4,7 +4,7 @@ import { ActivityRepository } from "../repository/activity.repository";
 import { IActivityDetails, IActivityResult, IActivitySession, ScoreResponse } from "../types/activity.type";
 
 export class ActivityService {
-    constructor(private _activityRepo: ActivityRepository, private _geminiClient: AIclientAdapter) { }
+    constructor(private _activityRepo: ActivityRepository, private _aiClient: AIclientAdapter) { }
 
     async create(activity: IActivitySession): Promise<IActivitySession> {
         const session = await this._activityRepo.start(activity);
@@ -29,15 +29,21 @@ export class ActivityService {
         return result;
     }
 
+    async createBulkActivity(activity: IActivityDetails[]) {
+        const result = await this._activityRepo.createBulkActivity(activity);
+        if (!result) throw new BadRequestError();
+        return result;
+    }
+
     async scorer(): Promise<string> {
-        const result = await this._geminiClient.analyseImage()
+        const result = await this._aiClient.analyseImage()
         if (!result) throw new BadRequestError();
         return result;
     }
 
     async scorerCloude(): Promise<ScoreResponse> {
         const intruction = "click photo of nature";
-        const result = await this._geminiClient.analyseImageHaiku(intruction)
+        const result = await this._aiClient.analyseImageHaiku(intruction)
         const reponse = JSON.parse(result) as ScoreResponse
         if (!result) throw new BadRequestError();
         return reponse;

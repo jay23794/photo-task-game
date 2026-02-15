@@ -48,9 +48,18 @@ export class ActivityRepository {
         }
     }
 
-    async createActivity(activity: IActivityDetails):Promise<IActivityDetails> {
+    async createActivity(activity: IActivityDetails): Promise<IActivityDetails> {
         try {
             const result = await ActivityDetailsModel.create(activity);
+            return result
+        } catch (error) {
+            throw handleMongooseError(error);
+        }
+    }
+
+    async createBulkActivity(activity: IActivityDetails[]): Promise<IActivityDetails[]> {
+        try {
+            const result: IActivityDetails[] = await ActivityDetailsModel.insertMany(activity)
             return result
         } catch (error) {
             throw handleMongooseError(error);

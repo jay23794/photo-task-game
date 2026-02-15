@@ -12,7 +12,7 @@ export interface IActivitySession extends Document {
     userId?: string
     userEmail: string
     isStarted: boolean
-    avatar?:string
+    avatar?: string
 }
 
 export interface IActivity extends Document {
@@ -42,6 +42,8 @@ export interface IActivityResult extends Document {
 }
 
 export interface ScoreResponse {
-    score:string
-    reason:string
+    score: string
+    reason: string
 }
+
+

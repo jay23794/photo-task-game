@@ -26,6 +26,13 @@ export const createActivity = async (req: Request, res: Response) => {
     res.status(201).json(successResponse(result));
 }
 
+export const createBulkActivity = async (req: Request, res: Response) => {
+    const payload = req.body as IActivityDetails[]
+    const result = await activityService.createBulkActivity(payload)
+    res.status(201).json(successResponse(result));
+}
+
+
 export const scorer = async (req: Request, res: Response) => {
     const result = await activityService.scorer()
     res.status(201).json(successResponse(result));
